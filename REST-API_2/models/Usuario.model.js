@@ -3,7 +3,6 @@ var mongoosePaginate = require('mongoose-paginate')
 
 
 var UsuarioSchema = new mongoose.Schema({
-    id:String,
     email: String,
     contrasena: String,
     nombre:String,
@@ -12,13 +11,13 @@ var UsuarioSchema = new mongoose.Schema({
     rol:String,
     fechaNac: String,
     avatar:String,
-    contrataciones:Array,
+    contrataciones:[],
     titulo:String,
     experiencia:String,
-    clasesPublicadas:Array,
-    clasesNoPublicada:Array,
+    clasesPublicadas:[],
+    clasesNoPublicada:[],
     estudios:String,
-    contratacionesFinalizadas:Array,
+    contratacionesFinalizadas:[],
     fechaCreacion:Date
 })
 

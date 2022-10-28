@@ -3,7 +3,6 @@ var mongoosePaginate = require('mongoose-paginate')
 
 
 var ClaseSchema = new mongoose.Schema({
-    id:String,
     titulo: String,
     imagen: String,
     descripcion:String,
@@ -13,9 +12,9 @@ var ClaseSchema = new mongoose.Schema({
     precio: Number,
     tipo:String,
     rating:Number,
-    usuarioId:String,
+    Usuarios_id:mongoose.Schema.Types.ObjectId,
     disponibilidad:Boolean,
-    comentarios:Array,
+    comentarios:[],
     fechaCreacion:Date
 })
 
