@@ -21,7 +21,7 @@ var UsuarioSchema = new mongoose.Schema({
     fechaCreacion:Date
 })
 
-UserSchema.plugin(mongoosePaginate)
+UsuarioSchema.plugin(mongoosePaginate)
 const Usuario = mongoose.model('Usuario', UsuarioSchema)
 
 module.exports = Usuario;
