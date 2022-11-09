@@ -1,4 +1,4 @@
-var UsuarioService = require('../services/usuario.service');
+var UsuarioService = require('../services/user.service');
 var UserImgService =require('../services/userImg.service');
 
 // Saving the context of this module inside the _the variable

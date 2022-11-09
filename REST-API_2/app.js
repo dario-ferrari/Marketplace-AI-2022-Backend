@@ -8,7 +8,7 @@ var cors = require('cors');
 
 //importo router
 var indexRouter = require('./routes/index');
-var apiRouter = require('./routes/usuarios.route'); //Custom
+var apiRouter = require('./routes/user.route'); //Custom
 var utilRouter = require('./routes/utils');
 
 //instancio el servidor
