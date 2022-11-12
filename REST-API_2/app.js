@@ -26,7 +26,7 @@ app.use(cors());
 app.use(cookieParser());
 
 //Indico las rutas de los endpoint
-app.use('/users', apiRouter);
+app.use('/usuarios', apiRouter);
 app.use('/', indexRouter);
 app.use('/utils/',utilRouter);
 

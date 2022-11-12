@@ -36,13 +36,34 @@ exports.getUsersByMail = async function (req, res) {
     }
 }
 
+exports.getyUsersById = async function(req,res){
+
+    var page = req.query.page ? req.query.page : 1
+    var limit = req.query.limit ? req.query.limit : 10;
+    let filtro= {_id: req.body._id}
+    try {
+        var Users = await UserService.getUsers(filtro, page, limit)
+        // Return the Users list with the appropriate HTTP password Code and Message.
+        return res.status(200).json({status: 200, data: Users, message: "Succesfully Users Recieved"});
+    } catch (e) {
+        //Return an Error Response Message with Code and the Error Message.
+        return res.status(400).json({status: 400, message: e.message});
+    }
+}
+
 exports.createUser = async function (req, res) {
     // Req.Body contains the form submit values.
     console.log("llegue al controller",req.body)
     var User = {
-        name: req.body.name,
+        nombre: req.body.nombre,
+        apellido: req.body.apellido,
         email: req.body.email,
-        password: req.body.password
+        titulo:req.body.titulo,
+        experiencia: req.body.experiencia,
+        fechaNac: req.body.fechaNac,
+        estudios: req.body.estudios,
+        date: req.body.date,
+        contrasena: req.body.contrasena
     }
     try {
         // Calling the Service function with the new object from the Request Body
@@ -58,16 +79,22 @@ exports.createUser = async function (req, res) {
 exports.updateUser = async function (req, res, next) {
 
     // Id is necessary for the update
-    if (!req.body.name) {
+    if (!req.body._id) {
         return res.status(400).json({status: 400., message: "Name be present"})
     }
 
     
     var User = {
        
-        name: req.body.name ? req.body.name : null,
-        email: req.body.email ? req.body.email : null,
-        password: req.body.password ? req.body.password : null
+        nombre: req.body.nombre ? req.body.nombre :null,
+        apellido: req.body.apellido ? req.body.apellido :null,
+        email: req.body.email ? req.body.email :null,
+        titulo:req.body.titulo ? req.body.titulo :null,
+        experiencia: req.body.experiencia ? req.body.experiencia :null,
+        fechaNac: req.body.fechaNac ? req.body.fechaNac :null,
+        estudios: req.body.estudios ? req.body.estudios :null,
+        date: req.body.date ? req.body.date :null,
+        contrasena: req.body.contrasena ? req.body.contrasena :null,
     }
     try {
         var updatedUser = await UserService.updateUser(User)
@@ -79,7 +106,7 @@ exports.updateUser = async function (req, res, next) {
 
 exports.removeUser = async function (req, res, next) {
 
-    var id = req.params.id;
+    var id = req.params._id;
     try {
         var deleted = await UserService.deleteUser(id);
         res.status(200).send("Succesfully Deleted... ");
@@ -94,7 +121,7 @@ exports.loginUser = async function (req, res) {
     console.log("body",req.body)
     var User = {
         email: req.body.email,
-        password: req.body.password
+        contrasena: req.body.contrasena
     }
     try {
         // Calling the Service function with the new object from the Request Body

@@ -1,4 +1,4 @@
-// Gettign the Newly created Mongoose Model we just created
+// Gettign the Newly created Mongoose Model we just created hola como estas
 var Clase = require("../models/Clase.model.js");
 var bcrypt = require("bcryptjs");
 var jwt = require("jsonwebtoken");
