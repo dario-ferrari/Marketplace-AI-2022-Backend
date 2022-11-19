@@ -1,82 +1,90 @@
-var UserService = require('../services/user.service');
-var UserImgService =require('../services/userImg.service');
+const Clase = require('../models/Clase.model');
+var claseService = require('../services/clase.service');
+//var UserImgService =require('../services/userImg.service')
+
+var mongoose = require('mongoose')
 
 // Saving the context of this module inside the _the variable
 _this = this;
 
 // Async Controller function to get the To do List
-exports.getUsers = async function (req, res, next) {
+exports.getClases = async function (req, res, next) {
 
     // Check the existence of the query parameters, If doesn't exists assign a default value
     var page = req.query.page ? req.query.page : 1
     var limit = req.query.limit ? req.query.limit : 10;
     try {
-        var Users = await UserService.getUsers({}, page, limit)
+        var Clases = await claseService.getClases({}, page, limit)
         // Return the Users list with the appropriate HTTP password Code and Message.
-        return res.status(200).json({status: 200, data: Users, message: "Succesfully Users Recieved"});
+        return res.status(200).json({status: 200, data: Clases, message: "Succesfully Clases Recieved"});
     } catch (e) {
         //Return an Error Response Message with Code and the Error Message.
         return res.status(400).json({status: 400, message: e.message});
     }
 }
 
-exports.getUsersByMail = async function (req, res) {
+exports.getClasesByName = async function (req, res) {
 
     // Check the existence of the query parameters, If doesn't exists assign a default value
     var page = req.query.page ? req.query.page : 1
     var limit = req.query.limit ? req.query.limit : 10;
-    let filtro= {email: req.body.email}
+    let filtro= {$text: { $search: req.body.titulo } }
     try {
-        var Users = await UserService.getUsers(filtro, page, limit)
-        // Return the Users list with the appropriate HTTP password Code and Message.
-        return res.status(200).json({status: 200, data: Users, message: "Succesfully Users Recieved"});
+        var Clases = await claseService.getClases(filtro, page, limit)
+        // Return the Clases list with the appropriate HTTP password Code and Message.
+        return res.status(200).json({status: 200, data: Clases, message: "Succesfully Clases Recieved"});
     } catch (e) {
         //Return an Error Response Message with Code and the Error Message.
         return res.status(400).json({status: 400, message: e.message});
     }
 }
 
-exports.getyUsersById = async function(req,res){
-
+exports.getClasesById = async function(req,res){
+    console.log("el back llego hasta aca")
     var page = req.query.page ? req.query.page : 1
     var limit = req.query.limit ? req.query.limit : 10;
-    let filtro= {_id: req.body._id}
+    let filtro= {_id: mongoose.Types.ObjectId(req.body._id)}
     try {
-        var Users = await UserService.getUsers(filtro, page, limit)
-        // Return the Users list with the appropriate HTTP password Code and Message.
-        return res.status(200).json({status: 200, data: Users, message: "Succesfully Users Recieved"});
+        var Clases = await claseService.getClases(filtro, page, limit)
+        // Return the Clases list with the appropriate HTTP password Code and Message.
+        return res.status(200).json({status: 200, data: Clases, message: "Succesfully Clases Recieved"});
     } catch (e) {
         //Return an Error Response Message with Code and the Error Message.
         return res.status(400).json({status: 400, message: e.message});
     }
 }
 
-exports.createUser = async function (req, res) {
+exports.createClase = async function (req, res) {
     // Req.Body contains the form submit values.
     console.log("llegue al controller",req.body)
-    var User = {
-        nombre: req.body.nombre,
-        apellido: req.body.apellido,
-        email: req.body.email,
-        titulo:req.body.titulo,
-        experiencia: req.body.experiencia,
-        fechaNac: req.body.fechaNac,
-        estudios: req.body.estudios,
-        date: req.body.date,
-        contrasena: req.body.contrasena
+
+
+    var Clase = {
+        titulo: req.body.titulo,
+        imagen: req.body.imagen,
+        descripcion: req.body.descripcion,
+        frecuencia:req.body.frecuencia,
+        duracion: req.body.duracion,
+        fechaLimite: req.body.fechaLimite,
+        precio: req.body.precio,
+        tipo: req.body.tipo,
+        rating: req.body.rating,
+        Usuarios_id: mongoose.Types.ObjectId(req.body.Usuarios_id),
+        disponibilidad: req.body.disponibilidad,
+        comentarios: req.body.comentarios
     }
     try {
         // Calling the Service function with the new object from the Request Body
-        var createdUser = await UserService.createUser(User)
-        return res.status(201).json({createdUser, message: "Succesfully Created User"})
+        var createClase = await claseService.createClase(Clase)
+        return res.status(201).json({createClase, message: "Succesfully Created Clase"})
     } catch (e) {
         //Return an Error Response Message with Code and the Error Message.
         console.log(e)
-        return res.status(400).json({status: 400, message: "User Creation was Unsuccesfull"})
+        return res.status(400).json({status: 400, message: "Clase Creation was Unsuccesfull"})
     }
 }
 
-exports.updateUser = async function (req, res, next) {
+exports.updateClase = async function (req, res, next) {
 
     // Id is necessary for the update
     if (!req.body._id) {
@@ -84,31 +92,37 @@ exports.updateUser = async function (req, res, next) {
     }
 
     
-    var User = {
+    var Clase = {
        
-        nombre: req.body.nombre ? req.body.nombre :null,
-        apellido: req.body.apellido ? req.body.apellido :null,
-        email: req.body.email ? req.body.email :null,
-        titulo:req.body.titulo ? req.body.titulo :null,
-        experiencia: req.body.experiencia ? req.body.experiencia :null,
-        fechaNac: req.body.fechaNac ? req.body.fechaNac :null,
-        estudios: req.body.estudios ? req.body.estudios :null,
-        date: req.body.date ? req.body.date :null,
-        contrasena: req.body.contrasena ? req.body.contrasena :null,
+        titulo: req.body.titulo ? req.body.titulo : null ,
+        imagen: req.body.imagen ? req.body.imagen : null,
+        descripcion: req.body.descripcion ? req.body.descripcion : null,
+        frecuencia:req.body.frecuencia ?req.body.frecuencia : null ,
+        duracion: req.body.duracion ? req.body.duracion :null,
+        fechaLimite: req.body.fechaLimite ? req.body.fechaLimite :null,
+        precio: req.body.precio ? req.body.precio :null,
+        tipo: req.body.tipo ? req.body.tipo :null,
+        rating: req.body.rating ? req.body.rating :null,
+        Usuarios_id: mongoose.Types.ObjectId(req.body.Usuarios_id) ? mongoose.Types.ObjectId(req.body.Usuarios_id) :null, 
+        disponibilidad: req.body.disponibilidad ? req.body.disponibilidad :null,
+        comentarios: req.body.comentarios ? req.body.comentarios :null,
+        fechaCreacion: req.body.fechaCreacion ? req.body.fechaCreacion :null
     }
     try {
-        var updatedUser = await UserService.updateUser(User)
-        return res.status(200).json({status: 200, data: updatedUser, message: "Succesfully Updated User"})
+        var updateClase = await claseService.updateClase(Clase)
+        return res.status(200).json({status: 200, data: updateClase, message: "Succesfully Updated Clase"})
     } catch (e) {
         return res.status(400).json({status: 400., message: e.message})
     }
 }
 
-exports.removeUser = async function (req, res, next) {
+exports.removeClase = async function (req, res, next) {
+    console.log("esto es lo que recibe el controller", req.body._id)
+    var id = req.body._id
 
-    var id = req.params._id;
+    console.log(id)
     try {
-        var deleted = await UserService.deleteUser(id);
+        var deleted = await claseService.deleteClase(id);
         res.status(200).send("Succesfully Deleted... ");
     } catch (e) {
         return res.status(400).json({status: 400, message: e.message})
@@ -116,27 +130,9 @@ exports.removeUser = async function (req, res, next) {
 }
 
 
-exports.loginUser = async function (req, res) {
-    // Req.Body contains the form submit values.
-    console.log("body",req.body)
-    var User = {
-        email: req.body.email,
-        contrasena: req.body.contrasena
-    }
-    try {
-        // Calling the Service function with the new object from the Request Body
-        var loginUser = await UserService.loginUser(User);
-        if (loginUser===0)
-            return res.status(400).json({message: "Error en la contraseña"})
-        else
-            return res.status(201).json({loginUser, message: "Succesfully login"})
-    } catch (e) {
-        //Return an Error Response Message with Code and the Error Message.
-        return res.status(400).json({status: 400, message: "Invalid username or password"})
-    }
-}
 
-exports.guardarImagenUser = async function (req, res) {
+
+exports.guardarImagenClase = async function (req, res) {
 
     console.log("ImgUser",req.body)
     // Id is necessary for the update
@@ -186,5 +182,3 @@ exports.getImagenUserByMail = async function (req, res) {
         return res.status(400).json({status: 400, message: e.message});
     }
 }
-    
-    

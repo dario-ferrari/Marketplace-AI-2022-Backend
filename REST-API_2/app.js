@@ -10,6 +10,7 @@ var cors = require('cors');
 var indexRouter = require('./routes/index');
 var apiRouter = require('./routes/user.route'); //Custom
 var utilRouter = require('./routes/utils');
+var claseApiRouter = require("./routes/clase.route")
 
 //instancio el servidor
 var app = express();
@@ -26,9 +27,10 @@ app.use(cors());
 app.use(cookieParser());
 
 //Indico las rutas de los endpoint
-app.use('/users', apiRouter);
+app.use('/usuarios', apiRouter);
 app.use('/', indexRouter);
 app.use('/utils/',utilRouter);
+app.use('/clases',claseApiRouter);
 
 //onsole.log("processENV",process.env);
 if (process.env.NODE_ENV === 'Development') {
