@@ -8,12 +8,13 @@ var Authorization = require('../auth/authorization');
 
 // Authorize each API with middleware and map to the Controller Functions
 /* GET users listing. */
-router.post('/createClase', ClaseController.createClase)
+router.post('/create', ClaseController.createClase)
 //router.post('/login/', UserController.loginUser)
 router.get('/all', ClaseController.getClases)
-router.post('/clasesByName/:titulo',ClaseController.getClasesByName)
-router.put('/', ClaseController.updateClase)
-router.delete('/deleteClase/:id',ClaseController.removeClase )
+router.get('/id',ClaseController.getClasesById)
+router.post('/:titulo',ClaseController.getClasesByName)
+router.put('/edit', ClaseController.updateClase)
+router.delete('/delete',ClaseController.removeClase )
 //router.post('/guardarImgUser',UserController.guardarImagenUser)
 //router.post('/uploadImg',UploadController.uploadFilesImgUser);
 //router.post('/imgUserByMail',Authorization,UserController.getImagenUserByMail)

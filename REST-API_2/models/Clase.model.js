@@ -12,7 +12,10 @@ var ClaseSchema = new mongoose.Schema({
     precio: Number,
     tipo:String,
     rating:Number,
-    Usuarios_id:mongoose.Schema.Types.ObjectId,
+    Usuarios_id:{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'usuarios'
+    }, //profesor
     disponibilidad:Boolean,
     comentarios:[],
     fechaCreacion:Date

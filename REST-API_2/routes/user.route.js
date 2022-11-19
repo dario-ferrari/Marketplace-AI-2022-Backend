@@ -12,11 +12,11 @@ router.get('/test', function(req, res) {
     res.send('Llegaste a la ruta de users');
   });
 router.post('/registration', UserController.createUser)
-router.post('/login/', UserController.loginUser)
-router.get('/', UserController.getUsers)
-router.post('/userByMail', Authorization, UserController.getUsersByMail)
-router.put('/', Authorization, UserController.updateUser)
-router.delete('/:id', Authorization, UserController.removeUser)
+router.post('/login', UserController.loginUser)
+router.get('/all', UserController.getUsers)
+router.post('/userByMail', UserController.getUsersByMail)
+router.put('/edit',UserController.updateUser)
+router.delete('/:id', UserController.removeUser)
 router.post('/guardarImgUser',UserController.guardarImagenUser)
 router.post('/uploadImg',UploadController.uploadFilesImgUser);
 router.post('/imgUserByMail',Authorization,UserController.getImagenUserByMail)

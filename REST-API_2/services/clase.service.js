@@ -15,8 +15,8 @@ exports.getClases = async function (query, page, limit) {
   };
   // Try Catch the awaited promise to handle the error
   try {
-    console.log("Query", query);
-    var Clases = await Clase.paginate(query, options);
+    console.log("Esta es la query de buscar por id Query", query);
+    var Clases = await Clase.findOne(query);
     // Return the Clased list that was retured by the mongoose promise
     return Clases;
   } catch (e) {
@@ -28,22 +28,8 @@ exports.getClases = async function (query, page, limit) {
 
 exports.createClase = async function (clase) {
   // Creating a new Mongoose Object by using the new keyword
-
-  var newClase = new Clase({
-    titulo: clase.titulo,
-    imagen: clase.imagen,
-    descripcion: clase.descripcion,
-    frecuencia: clase.frecuencia,
-    duracion: clase.duracion,
-    fechaLimite: clase.fechaLimite,
-    precio: clase.precio,
-    tipo: clase.tipo,
-    rating: clase.rating,
-    usuarioId: clase.Usuarios_id,
-    disponibilidad: clase.disponibilidad,
-    comentarios: clase.comentarios,
-    fechaCreacion: new Date(),
-  });
+  console.log(clase.Usuarios_id)
+  var newClase = new Clase(clase)
 
   try {
     // Saving the Clase
@@ -100,8 +86,9 @@ exports.updateClase = async function (clase) {
 
 exports.deleteClase = async function (id) {
   // Delete the Clase
+  console.log(id)
   try {
-    var deleted = await Clase.remove({
+    var deleted = await Clase.deleteOne({
       _id: id,
     });
     if (deleted.n === 0 && deleted.ok === 1) {

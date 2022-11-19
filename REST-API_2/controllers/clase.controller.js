@@ -1,6 +1,8 @@
 const Clase = require('../models/Clase.model');
 var claseService = require('../services/clase.service');
-//var UserImgService =require('../services/userImg.service');
+//var UserImgService =require('../services/userImg.service')
+
+var mongoose = require('mongoose')
 
 // Saving the context of this module inside the _the variable
 _this = this;
@@ -26,7 +28,7 @@ exports.getClasesByName = async function (req, res) {
     // Check the existence of the query parameters, If doesn't exists assign a default value
     var page = req.query.page ? req.query.page : 1
     var limit = req.query.limit ? req.query.limit : 10;
-    let filtro= {titulo: req.body.titulo}
+    let filtro= {$text: { $search: req.body.titulo } }
     try {
         var Clases = await claseService.getClases(filtro, page, limit)
         // Return the Clases list with the appropriate HTTP password Code and Message.
@@ -38,10 +40,10 @@ exports.getClasesByName = async function (req, res) {
 }
 
 exports.getClasesById = async function(req,res){
-
+    console.log("el back llego hasta aca")
     var page = req.query.page ? req.query.page : 1
     var limit = req.query.limit ? req.query.limit : 10;
-    let filtro= {_id: req.body._id}
+    let filtro= {_id: mongoose.Types.ObjectId(req.body._id)}
     try {
         var Clases = await claseService.getClases(filtro, page, limit)
         // Return the Clases list with the appropriate HTTP password Code and Message.
@@ -55,6 +57,8 @@ exports.getClasesById = async function(req,res){
 exports.createClase = async function (req, res) {
     // Req.Body contains the form submit values.
     console.log("llegue al controller",req.body)
+
+
     var Clase = {
         titulo: req.body.titulo,
         imagen: req.body.imagen,
@@ -65,10 +69,9 @@ exports.createClase = async function (req, res) {
         precio: req.body.precio,
         tipo: req.body.tipo,
         rating: req.body.rating,
-        Usuarios_id: req.body.Usuarios_id,
+        Usuarios_id: mongoose.Types.ObjectId(req.body.Usuarios_id),
         disponibilidad: req.body.disponibilidad,
-        comentarios: req.body.comentarios,
-        fechaCreacion: req.body.fechaCreacion
+        comentarios: req.body.comentarios
     }
     try {
         // Calling the Service function with the new object from the Request Body
@@ -100,7 +103,7 @@ exports.updateClase = async function (req, res, next) {
         precio: req.body.precio ? req.body.precio :null,
         tipo: req.body.tipo ? req.body.tipo :null,
         rating: req.body.rating ? req.body.rating :null,
-        Usuarios_id: req.body.Usuarios_id ? req.body.Usuarios_id :null,
+        Usuarios_id: mongoose.Types.ObjectId(req.body.Usuarios_id) ? mongoose.Types.ObjectId(req.body.Usuarios_id) :null, 
         disponibilidad: req.body.disponibilidad ? req.body.disponibilidad :null,
         comentarios: req.body.comentarios ? req.body.comentarios :null,
         fechaCreacion: req.body.fechaCreacion ? req.body.fechaCreacion :null
@@ -114,8 +117,10 @@ exports.updateClase = async function (req, res, next) {
 }
 
 exports.removeClase = async function (req, res, next) {
+    console.log("esto es lo que recibe el controller", req.body._id)
+    var id = req.body._id
 
-    var id = req.params._id;
+    console.log(id)
     try {
         var deleted = await claseService.deleteClase(id);
         res.status(200).send("Succesfully Deleted... ");
