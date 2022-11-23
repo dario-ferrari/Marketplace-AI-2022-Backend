@@ -16,7 +16,7 @@ exports.getClases = async function (query, page, limit) {
   // Try Catch the awaited promise to handle the error
   try {
     console.log("Esta es la query de buscar por id Query", query);
-    var Clases = await Clase.findOne(query);
+    var Clases = await Clase.find(query);
     // Return the Clased list that was retured by the mongoose promise
     return Clases;
   } catch (e) {

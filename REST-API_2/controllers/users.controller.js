@@ -121,7 +121,7 @@ exports.loginUser = async function (req, res) {
     console.log("body",req.body)
     var User = {
         email: req.body.email,
-        contrasena: req.body.contrasena
+        pass: req.body.pass
     }
     try {
         // Calling the Service function with the new object from the Request Body
