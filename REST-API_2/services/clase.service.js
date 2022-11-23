@@ -16,8 +16,22 @@ exports.getClases = async function (query, page, limit) {
   // Try Catch the awaited promise to handle the error
   try {
     console.log("Esta es la query de buscar por id Query", query);
+    var Clases = await Clase.find(query);
+    // Return the C lased list that was retured by the mongoose promise
+    return Clases;
+  } catch (e) {
+    // return a Error message describing the reason
+    console.log("error services", e);
+    throw Error("Error while Paginating Clases");
+  }
+};
+
+exports.getClaseById = async function (query, page, limit) {
+  // Try Catch the awaited promise to handle the error
+  try {
+    console.log("Esta es la query de buscar por id clase", query);
     var Clases = await Clase.findOne(query);
-    // Return the Clased list that was retured by the mongoose promise
+    // Return the C lased list that was retured by the mongoose promise
     return Clases;
   } catch (e) {
     // return a Error message describing the reason

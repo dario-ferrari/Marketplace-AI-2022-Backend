@@ -17,8 +17,9 @@ exports.getUsers = async function (query, page, limit) {
     // Try Catch the awaited promise to handle the error 
     try {
         console.log("Query",query)
-        var Users = await User.paginate(query, options)
+        var Users = await User.find(query)
         // Return the User list that was retured by the mongoose promise
+        console.log(Users)
         return Users;
 
     } catch (e) {
@@ -27,6 +28,9 @@ exports.getUsers = async function (query, page, limit) {
         throw Error('Error while Paginating Users');
     }
 }
+
+// Async function to get the specific User by id
+
 
 exports.createUser = async function (user) {
     // Creating a new Mongoose Object by using the new keyword
@@ -112,7 +116,6 @@ exports.deleteUser = async function (id) {
 
 
 exports.loginUser = async function (user) {
-
     // Creating a new Mongoose Object by using the new keyword
     try {
         // Find the User 
@@ -120,7 +123,11 @@ exports.loginUser = async function (user) {
         var _details = await User.findOne({
             email: user.email
         });
-        var passwordIsValid = bcrypt.compareSync(user.contrasena, _details.password);
+        //var passwordIsValid = bcrypt.compareSync(user.contrasena, _details.password);
+        console.log(_details.contrasena)
+        console.log(user.pass)
+        var passwordIsValid = (_details.contrasena == user.pass) ? true : false;
+        console.log(passwordIsValid)
         if (!passwordIsValid) return 0;
 
         var token = jwt.sign({

@@ -45,7 +45,7 @@ exports.getClasesById = async function(req,res){
     var limit = req.query.limit ? req.query.limit : 10;
     let filtro= {_id: mongoose.Types.ObjectId(req.body._id)}
     try {
-        var Clases = await claseService.getClases(filtro, page, limit)
+        var Clases = await claseService.getClaseById(filtro, page, limit)
         // Return the Clases list with the appropriate HTTP password Code and Message.
         return res.status(200).json({status: 200, data: Clases, message: "Succesfully Clases Recieved"});
     } catch (e) {
