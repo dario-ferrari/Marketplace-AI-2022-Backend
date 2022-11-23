@@ -14,9 +14,10 @@ router.get('/test', function(req, res) {
 router.post('/registration', UserController.createUser)
 router.post('/login', UserController.loginUser)
 router.get('/all', UserController.getUsers)
+router.post('/id', UserController.getUsersById)
 router.post('/userByMail', UserController.getUsersByMail)
 router.put('/edit',UserController.updateUser)
-router.delete('/:id', UserController.removeUser)
+router.delete('/remove/:id', UserController.removeUser)
 router.post('/guardarImgUser',UserController.guardarImagenUser)
 router.post('/uploadImg',UploadController.uploadFilesImgUser);
 router.post('/imgUserByMail',Authorization,UserController.getImagenUserByMail)

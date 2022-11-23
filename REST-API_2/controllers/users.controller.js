@@ -25,10 +25,13 @@ exports.getUsersByMail = async function (req, res) {
     // Check the existence of the query parameters, If doesn't exists assign a default value
     var page = req.query.page ? req.query.page : 1
     var limit = req.query.limit ? req.query.limit : 10;
+    console.log("el email que recibo",req.body.email)
     let filtro= {email: req.body.email}
+    console.log('fior;trioatjfklg',filtro)
     try {
         var Users = await UserService.getUsers(filtro, page, limit)
         // Return the Users list with the appropriate HTTP password Code and Message.
+        console.log(Users)
         return res.status(200).json({status: 200, data: Users, message: "Succesfully Users Recieved"});
     } catch (e) {
         //Return an Error Response Message with Code and the Error Message.
@@ -36,10 +39,11 @@ exports.getUsersByMail = async function (req, res) {
     }
 }
 
-exports.getyUsersById = async function(req,res){
+exports.getUsersById = async function(req,res){
 
     var page = req.query.page ? req.query.page : 1
     var limit = req.query.limit ? req.query.limit : 10;
+    console.log("aca estoy llegando salame")
     let filtro= {_id: req.body._id}
     try {
         var Users = await UserService.getUsers(filtro, page, limit)

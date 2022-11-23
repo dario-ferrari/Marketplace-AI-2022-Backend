@@ -124,7 +124,10 @@ exports.loginUser = async function (user) {
             email: user.email
         });
         //var passwordIsValid = bcrypt.compareSync(user.contrasena, _details.password);
-        var passwordIsValid = _details.password === user.pass ? true : false;
+        console.log(_details.contrasena)
+        console.log(user.pass)
+        var passwordIsValid = (_details.contrasena == user.pass) ? true : false;
+        console.log(passwordIsValid)
         if (!passwordIsValid) return 0;
 
         var token = jwt.sign({
