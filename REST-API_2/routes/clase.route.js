@@ -11,7 +11,7 @@ var Authorization = require('../auth/authorization');
 router.post('/create', ClaseController.createClase)
 //router.post('/login/', UserController.loginUser)
 router.get('/all', ClaseController.getClases)
-router.get('/id',ClaseController.getClasesById)
+router.post('/id',ClaseController.getClasesById)
 router.post('/titulo',ClaseController.getClasesByName)
 router.put('/edit', ClaseController.updateClase)
 router.delete('/delete',ClaseController.removeClase )
