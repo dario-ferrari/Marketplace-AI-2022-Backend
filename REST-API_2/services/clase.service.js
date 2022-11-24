@@ -32,6 +32,7 @@ exports.getClaseById = async function (query, page, limit) {
     console.log("Esta es la query de buscar por id clase", query);
     var Clases = await Clase.findOne(query);
     // Return the C lased list that was retured by the mongoose promise
+    console.log ("Esta es la respuesta",Clases)
     return Clases;
   } catch (e) {
     // return a Error message describing the reason

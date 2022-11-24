@@ -30,6 +30,22 @@ exports.getUsers = async function (query, page, limit) {
 }
 
 // Async function to get the specific User by id
+exports.getUserbyId = async function (query) {
+
+    // Try Catch the awaited promise to handle the error 
+    try {
+        console.log("Query",query)
+        var Users = await User.findOne(query)
+        // Return the User list that was retured by the mongoose promise
+        console.log(Users)
+        return Users;
+
+    } catch (e) {
+        // return a Error message describing the reason 
+        console.log("error services",e)
+        throw Error('Error while Paginating Users');
+    }
+}
 
 
 exports.createUser = async function (user) {
