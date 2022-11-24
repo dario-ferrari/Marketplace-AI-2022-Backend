@@ -22,6 +22,6 @@ var ClaseSchema = new mongoose.Schema({
 })
 
 ClaseSchema.plugin(mongoosePaginate)
-const Clase = mongoose.model('Clase', ClaseSchema)
+const Clase = mongoose.model('clase', ClaseSchema)
 
 module.exports = Clase;
