@@ -20,11 +20,11 @@ var UserSchema = new mongoose.Schema({
     experiencia:String,
     clasesPublicadas:[{
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Clase'
+        ref: 'clase'
     }],
     clasesNoPublicada:[{
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Clase'    
+        ref: 'clase'    
     }],
     estudios:String,
     contratacionesFinalizadas:[{

@@ -80,6 +80,8 @@ exports.createUser = async function (req, res) {
 
 exports.updateUser = async function (req, res, next) {
 
+    console.log('aca llega el actualizar usuario',req.body)
+
     // Id is necessary for the update
     if (!req.body._id) {
         return res.status(400).json({status: 400., message: "Name be present"})
@@ -87,7 +89,7 @@ exports.updateUser = async function (req, res, next) {
 
     
     var User = {
-       
+        _id: req.body._id,
         nombre: req.body.nombre ? req.body.nombre :null,
         apellido: req.body.apellido ? req.body.apellido :null,
         email: req.body.email ? req.body.email :null,

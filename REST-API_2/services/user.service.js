@@ -1,6 +1,7 @@
 // Gettign the Newly created Mongoose Model we just created 
-var User = require('../models/User.model.js');
+var User = require('../models/user.model.js');
 var Contratacione = require('../models/contratacion.model.js');
+var Clase = require('../models/clase.model');
 var bcrypt = require('bcryptjs');
 var jwt = require('jsonwebtoken');
 
@@ -96,17 +97,17 @@ exports.updateUser = async function (user) {
         return false;
     }
     //Edit the User Object
-    var hashedPassword = bcrypt.hashSync(user.contrasena, 8);
-    oldUser.nombre = user.nombre
-    oldUser.email = user.email
-    oldUser.contrasena = hashedPassword
-    oldUser.apellido=user.apellido
-    oldUser.telefono=user.telefono
-    oldUser.fechaNac=user.fechaNac
-    oldUser.avatar=user.avatar
-    oldUser.titulo=user.titulo
-    oldUser.experiencia=user.experiencia
-    oldUser.estudios=user.estudios
+    oldUser.nombre = (user.nombre!== null) ?  user.nombre : oldUser.nombre
+    oldUser.email = (user.email!== null) ?  user.email : oldUser.email
+    oldUser.contrasena = (user.contrasena!== null) ?  user.contrasena : oldUser.contrasena
+    oldUser.apellido = (user.apellido!== null) ?  user.apellido : oldUser.apellido
+    oldUser.telefono = (user.telefono!== null) ?  user.telefono : oldUser.telefono
+    oldUser.avatar = (user.avatar!== null) ?  user.avatar : oldUser.avatar
+    oldUser.titulo = (user.titulo!== null) ?  user.titulo : oldUser.titulo
+    oldUser.experiencia = (user.experiencia!== null) ?  user.experiencia : oldUser.experiencia
+    oldUser.estudios = (user.estudios!== null) ?  user.estudios : oldUser.estudios
+
+    console.log('usuario actualizado', oldUser)
     try {
         var savedUser = await oldUser.save()
         return savedUser;

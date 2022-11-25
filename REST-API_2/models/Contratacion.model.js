@@ -3,12 +3,18 @@ var mongoosePaginate = require('mongoose-paginate')
 
 
 var contratacionSchema = new mongoose.Schema({
-    Clases_id: {
+    clase: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'clases'
+        ref: 'clase'
     },
-    alumno: Object,
-    profesor: Object,
+    alumno: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'user'
+    },
+    profesor: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'user'
+    },
     estado: String,
     fechaFinalizacion: Date,
     rating: Number,
