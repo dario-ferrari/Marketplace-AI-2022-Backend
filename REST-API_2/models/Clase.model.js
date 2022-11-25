@@ -14,10 +14,15 @@ var ClaseSchema = new mongoose.Schema({
     rating:Number,
     Usuarios_id:{
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'usuarios'
+        ref: 'Usuario'
     }, //profesor
     disponibilidad:Boolean,
-    comentarios:[],
+    comentarios:[
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Comentario'
+        }
+    ],
     fechaCreacion:Date
 })
 

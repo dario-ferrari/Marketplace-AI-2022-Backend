@@ -1,5 +1,6 @@
 // Gettign the Newly created Mongoose Model we just created 
 var User = require('../models/User.model.js');
+var Contratacione = require('../models/contratacion.model.js');
 var bcrypt = require('bcryptjs');
 var jwt = require('jsonwebtoken');
 
@@ -35,7 +36,7 @@ exports.getUserbyId = async function (query) {
     // Try Catch the awaited promise to handle the error 
     try {
         console.log("Query",query)
-        var Users = await User.findOne(query)
+        var Users = await User.findOne(query).populate({path:'contrataciones', model: Contratacione })
         // Return the User list that was retured by the mongoose promise
         console.log(Users)
         return Users;
@@ -43,7 +44,7 @@ exports.getUserbyId = async function (query) {
     } catch (e) {
         // return a Error message describing the reason 
         console.log("error services",e)
-        throw Error('Error while Paginating Users');
+        throw Error('Error while Paginating Users', e);
     }
 }
 

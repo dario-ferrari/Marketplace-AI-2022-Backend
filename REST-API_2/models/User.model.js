@@ -13,23 +13,23 @@ var UserSchema = new mongoose.Schema({
     avatar:String,
     contrataciones:[{
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'contrataciones'
+        ref: 'contratacione'
     }
     ],
     titulo:String,
     experiencia:String,
     clasesPublicadas:[{
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'clases'
+        ref: 'Clase'
     }],
     clasesNoPublicada:[{
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'clases'
+        ref: 'Clase'    
     }],
     estudios:String,
     contratacionesFinalizadas:[{
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'contrataciones'
+        ref: 'contratacione'
     }],
     fechaCreacion:Date
 },)
