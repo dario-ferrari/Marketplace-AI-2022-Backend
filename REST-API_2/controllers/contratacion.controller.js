@@ -56,16 +56,19 @@ exports.createContratacion = async function (req, res) {
     // Req.Body contains the form submit values.
     console.log("llegue al controller",req.body)
     var Contratacion = {
+
         clase: req.body.clase,
         alumno: req.body.alumno,
         profesor: req.body.profesor,
         estado: req.body.estado,
+
         rating: req.body.rating,
         isValorada: req.body.isValorada,
         telefono: req.body.telefono,
         email: req.body.email,
         horarioRef: req.body.horarioRef,
         mensaje: req.body.mensaje
+
     }
     try {
         // Calling the Service function with the new object from the Request Body
@@ -87,7 +90,9 @@ exports.updateContratacion = async function (req, res, next) {
 
     
     var Contratacion = {
+
         clase: req.body.clase ? req.body.clase : null,
+
         alumno: req.body.alumno ? req.body.alumno : null,
         profesor: req.body.profesor ? req.body.profesor : null,
         estado: req.body.estado ? req.body.estado : null,
