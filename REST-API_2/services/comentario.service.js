@@ -1,5 +1,6 @@
 // Gettign the Newly created Mongoose Model we just created
 var Comentario = require("../models/Comentario.model.js");
+var Usuario = requeiere("../models/User.model.js")
 var bcrypt = require("bcryptjs");
 var jwt = require("jsonwebtoken");
 
@@ -31,7 +32,9 @@ exports.getComentariobyId = async function (query) {
   // Try Catch the awaited promise to handle the error
   try {
     console.log("Query", query);
-    var Comentarios = await Comentario.findOne(query);
+    var Comentarios = await Comentario.findOne(query).populate({
+      path: "usuario", model : Usuario
+    });
     // Return the comentariod list that was retured by the mongoose promise
     return Comentarios;
   } catch (e) {

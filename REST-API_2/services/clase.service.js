@@ -1,5 +1,7 @@
 // Gettign the Newly created Mongoose Model we just created hola como estas
 var Clase = require("../models/clase.model.js");
+var Comentario = require("../models/comentario.model.js");
+var Usuario = require("../models/user.model.js");
 var bcrypt = require("bcryptjs");
 var jwt = require("jsonwebtoken");
 
@@ -26,11 +28,11 @@ exports.getClases = async function (query, page, limit) {
   }
 };
 
-exports.getClaseById = async function (query, page, limit) {
-  // Try Catch the awaited promise to handle the error
+exports.getClaseById = async function (query) {
+  // Try Catch the awaited rspromise to handle the error
   try {
     console.log("Esta es la query de buscar por id clase", query);
-    var Clases = await Clase.findOne(query);
+    var Clases = await Clase.findOne(query).populate([{path:'Usuarios_id', model: Usuario },{path:'comentarios', model: Comentario,populate : {path:'usuario', model: Usuario }}]);
     // Return the C lased list that was retured by the mongoose promise
     console.log ("Esta es la respuesta",Clases)
     return Clases;
