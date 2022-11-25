@@ -22,16 +22,7 @@ var UserSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'clase'
     }],
-    clasesNoPublicada:[{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'clase'    
-    }],
-    estudios:String,
-    contratacionesFinalizadas:[{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'contratacione'
-    }],
-    fechaCreacion:Date
+    estudios:String
 },)
 
 UserSchema.plugin(mongoosePaginate)

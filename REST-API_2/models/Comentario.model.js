@@ -14,8 +14,7 @@ var ComentarioSchema = new mongoose.Schema({
     mensaje:String,
     likes:Number,
     estado:String,
-    justificacion:Number,
-    fechaCreacion:Date
+    justificacion:Number
 })
 
 ComentarioSchema.plugin(mongoosePaginate)

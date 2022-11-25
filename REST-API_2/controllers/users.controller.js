@@ -100,6 +100,8 @@ exports.updateUser = async function (req, res, next) {
         estudios: req.body.estudios ? req.body.estudios :null,
         date: req.body.date ? req.body.date :null,
         contrasena: req.body.contrasena ? req.body.contrasena :null,
+        contrataciones: req.body.contrataciones ? req.body.contrataciones.map((contrat)=>(mongoose.Types.ObjectId(contrat))) :null,
+        clasesPublicadas: req.body.clasesPublicadas ? req.body.clasesPublicadas.map((clasePub)=>(mongoose.Types.ObjectId(clasePub))) :null
     }
     try {
         var updatedUser = await UserService.updateUser(User)

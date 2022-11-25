@@ -37,9 +37,10 @@ exports.getUserbyId = async function (query) {
     // Try Catch the awaited promise to handle the error 
     try {
         console.log("Query",query)
-        var Users = await User.findOne(query).populate({path:'contrataciones', model: Contratacione ,populate : {path:'clase', model: Clase }})
+        var Users = await User.findOne(query).populate([
+            {path:'contrataciones', model: Contratacione ,populate: {path:'clase', model: Clase }},{path:'clasesPublicadas', model: Clase}])
         // Return the User list that was retured by the mongoose promise
-        console.log(Users)
+        console.log("respuesta",Users)
         return Users;
 
     } catch (e) {
@@ -106,6 +107,8 @@ exports.updateUser = async function (user) {
     oldUser.titulo = (user.titulo!== null) ?  user.titulo : oldUser.titulo
     oldUser.experiencia = (user.experiencia!== null) ?  user.experiencia : oldUser.experiencia
     oldUser.estudios = (user.estudios!== null) ?  user.estudios : oldUser.estudios
+    oldUser.contrataciones = (user.contrataciones!== null) ?  user.contrataciones : oldUser.contrataciones
+    oldUser.clasesPublicadas = (user.clasesPublicadas!== null) ?  user.clasesPublicadas : oldUser.clasesPublicadas
 
     console.log('usuario actualizado', oldUser)
     try {

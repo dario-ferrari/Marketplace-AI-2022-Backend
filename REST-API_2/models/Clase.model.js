@@ -8,7 +8,6 @@ var ClaseSchema = new mongoose.Schema({
     descripcion:String,
     frecuencia:String,
     duracion:Number,
-    fechaLimite:Date,
     precio: Number,
     tipo:String,
     rating:Number,
@@ -16,14 +15,12 @@ var ClaseSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'usuario'
     }, //profesor
-    disponibilidad:Boolean,
     comentarios:[
         {
             type: mongoose.Schema.Types.ObjectId,
             ref: 'comentario'
         }
-    ],
-    fechaCreacion:Date
+    ]
 })
 
 ClaseSchema.plugin(mongoosePaginate)

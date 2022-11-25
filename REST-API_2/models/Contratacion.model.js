@@ -21,9 +21,8 @@ var contratacionSchema = new mongoose.Schema({
     isValorada: Boolean,
     telefono: String,
     email: String,
-    horarioRef: Date,
-    mensaje: String,
-    fechaCreacion: Date
+    horarioRef: Number,
+    mensaje: String
 })
 
 contratacionSchema.plugin(mongoosePaginate)

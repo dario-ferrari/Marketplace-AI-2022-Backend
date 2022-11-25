@@ -60,14 +60,12 @@ exports.createContratacion = async function (req, res) {
         alumno: req.body.alumno,
         profesor: req.body.profesor,
         estado: req.body.estado,
-        fechaFinalizacion:req.body.fechaFinalizacion,
         rating: req.body.rating,
         isValorada: req.body.isValorada,
         telefono: req.body.telefono,
         email: req.body.email,
         horarioRef: req.body.horarioRef,
-        mensaje: req.body.mensaje,
-        fechaCreacion: req.body.fechaCreacion,
+        mensaje: req.body.mensaje
     }
     try {
         // Calling the Service function with the new object from the Request Body
