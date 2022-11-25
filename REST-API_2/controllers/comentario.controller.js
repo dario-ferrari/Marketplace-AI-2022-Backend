@@ -39,11 +39,9 @@ exports.getComentariosByName = async function (req, res) {
 
 exports.getComentariosById = async function(req,res){
 
-    var page = req.query.page ? req.query.page : 1
-    var limit = req.query.limit ? req.query.limit : 10;
     let filtro= {_id: req.body._id}
     try {
-        var Comentarios = await comentarioService.getComentarios(filtro, page, limit)
+        var Comentarios = await comentarioService.getComentariobyId(filtro)
         // Return the Comentarios list with the appropriate HTTP password Code and Message.
         return res.status(200).json({status: 200, data: Comentarios, message: "Succesfully Comentarios Recieved"});
     } catch (e) {
@@ -89,8 +87,9 @@ exports.updateComentario = async function (req, res, next) {
         mensaje: req.body.mensaje ? req.body.mensaje: null ,
         likes: req.body.likes ? req.body.likes: null ,
         estado: req.body.estado ? req.body.estado: null ,
-        justificacion: req.body.justificacion ? req.body.justificacion: null ,
-        fechaCreacion: req.body.fechaCreacion ? req.body.fechaCreacion: null 
+
+        justificacion: req.body.justificacion ? req.body.justificacion: null
+
     }
     try {
         var updateComentario = await comentarioService.updateComentario(Comentario)

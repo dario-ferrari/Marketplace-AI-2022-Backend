@@ -1,4 +1,4 @@
-const Clase = require('../models/Clase.model');
+const Clase = require('../models/clase.model');
 var claseService = require('../services/clase.service');
 //var UserImgService =require('../services/userImg.service')
 
@@ -54,8 +54,7 @@ exports.getClasesById = async function(req,res){
 
 exports.createClase = async function (req, res) {
     // Req.Body contains the form submit values.
-    console.log("llegue al controller",req.body)
-
+    console.log("llegue al controller",req.body)    
 
     var Clase = {
         titulo: req.body.titulo,
@@ -63,13 +62,11 @@ exports.createClase = async function (req, res) {
         descripcion: req.body.descripcion,
         frecuencia:req.body.frecuencia,
         duracion: req.body.duracion,
-        fechaLimite: req.body.fechaLimite,
         precio: req.body.precio,
         tipo: req.body.tipo,
         rating: req.body.rating,
         Usuarios_id: mongoose.Types.ObjectId(req.body.Usuarios_id),
-        disponibilidad: req.body.disponibilidad,
-        comentarios: req.body.comentarios
+        comentarios: []
     }
     try {
         // Calling the Service function with the new object from the Request Body
@@ -84,28 +81,29 @@ exports.createClase = async function (req, res) {
 
 exports.updateClase = async function (req, res, next) {
 
+    console.log('Llego la llamada al controlador update',req.body)
+
     // Id is necessary for the update
     if (!req.body._id) {
-        return res.status(400).json({status: 400., message: "Name be present"})
+        return res.status(400).json({status: 400., message: "id be present"})
     }
 
+    console.log(req.body.comentarios)
     
     var Clase = {
-       
+        _id: req.body._id,
         titulo: req.body.titulo ? req.body.titulo : null ,
         imagen: req.body.imagen ? req.body.imagen : null,
         descripcion: req.body.descripcion ? req.body.descripcion : null,
         frecuencia:req.body.frecuencia ?req.body.frecuencia : null ,
         duracion: req.body.duracion ? req.body.duracion :null,
-        fechaLimite: req.body.fechaLimite ? req.body.fechaLimite :null,
         precio: req.body.precio ? req.body.precio :null,
         tipo: req.body.tipo ? req.body.tipo :null,
         rating: req.body.rating ? req.body.rating :null,
         Usuarios_id: mongoose.Types.ObjectId(req.body.Usuarios_id) ? mongoose.Types.ObjectId(req.body.Usuarios_id) :null, 
-        disponibilidad: req.body.disponibilidad ? req.body.disponibilidad :null,
-        comentarios: req.body.comentarios ? req.body.comentarios :null,
-        fechaCreacion: req.body.fechaCreacion ? req.body.fechaCreacion :null
+        comentarios: req.body.comentarios ? req.body.comentarios.map((comment)=>(mongoose.Types.ObjectId(comment))) :null,
     }
+    console.log("Clase creada para actualizar",Clase)
     try {
         var updateClase = await claseService.updateClase(Clase)
         return res.status(200).json({status: 200, data: updateClase, message: "Succesfully Updated Clase"})
@@ -131,7 +129,6 @@ exports.removeClase = async function (req, res, next) {
 
 
 exports.guardarImagenClase = async function (req, res) {
-
     console.log("ImgUser",req.body)
     // Id is necessary for the update
     if (!req.body.email) {

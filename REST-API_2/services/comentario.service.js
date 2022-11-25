@@ -1,5 +1,6 @@
 // Gettign the Newly created Mongoose Model we just created
 var Comentario = require("../models/Comentario.model.js");
+var Usuario = requeiere("../models/User.model.js")
 var bcrypt = require("bcryptjs");
 var jwt = require("jsonwebtoken");
 
@@ -17,6 +18,23 @@ exports.getComentarios = async function (query, page, limit) {
   try {
     console.log("Query", query);
     var Comentarios = await Comentario.paginate(query, options);
+    // Return the comentariod list that was retured by the mongoose promise
+    return Comentarios;
+  } catch (e) {
+    // return a Error message describing the reason
+    console.log("error services", e);
+    throw Error("Error while Paginating Comentarios");
+  }
+};
+
+exports.getComentariobyId = async function (query) {
+  // Options setup for the mongoose paginate
+  // Try Catch the awaited promise to handle the error
+  try {
+    console.log("Query", query);
+    var Comentarios = await Comentario.findOne(query).populate({
+      path: "usuario", model : Usuario
+    });
     // Return the comentariod list that was retured by the mongoose promise
     return Comentarios;
   } catch (e) {

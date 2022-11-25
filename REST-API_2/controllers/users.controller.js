@@ -80,6 +80,8 @@ exports.createUser = async function (req, res) {
 
 exports.updateUser = async function (req, res, next) {
 
+    console.log('aca llega el actualizar usuario',req.body)
+
     // Id is necessary for the update
     if (!req.body._id) {
         return res.status(400).json({status: 400., message: "Name be present"})
@@ -87,16 +89,19 @@ exports.updateUser = async function (req, res, next) {
 
     
     var User = {
-       
+        _id: req.body._id,
         nombre: req.body.nombre ? req.body.nombre :null,
         apellido: req.body.apellido ? req.body.apellido :null,
         email: req.body.email ? req.body.email :null,
         titulo:req.body.titulo ? req.body.titulo :null,
         experiencia: req.body.experiencia ? req.body.experiencia :null,
+        avatar : req.body.avatar ? req.body.avatar :null,
         fechaNac: req.body.fechaNac ? req.body.fechaNac :null,
         estudios: req.body.estudios ? req.body.estudios :null,
         date: req.body.date ? req.body.date :null,
         contrasena: req.body.contrasena ? req.body.contrasena :null,
+        contrataciones: req.body.contrataciones ? req.body.contrataciones.map((contrat)=>(mongoose.Types.ObjectId(contrat))) :null,
+        clasesPublicadas: req.body.clasesPublicadas ? req.body.clasesPublicadas.map((clasePub)=>(mongoose.Types.ObjectId(clasePub))) :null
     }
     try {
         var updatedUser = await UserService.updateUser(User)

@@ -29,20 +29,8 @@ exports.getContrataciones = async function (query, page, limit) {
 exports.createContratacion = async function (contratacion) {
   // Creating a new Mongoose Object by using the new keyword
 
-  var newContratacion = new Contratacion({
-    claseId: contratacion.Clases_id,
-    estado: contratacion.estado,
-    rating: contratacion.rating,
-    isValorada: contratacion.isValorada,
-    telefono: contratacion.telefono,
-    email: contratacion.email,
-    horarioRef: contratacion.horarioRef,
-    mensaje: contratacion.mensaje,
-    fechaCreacion: new Date(),
-    fechaFinalizacion: contratacion.fechaFinalizacion,
-    alumno: contratacion.alumno,
-    profesor: contratacion.profesor,
-  });
+  
+  var newContratacion = new Contratacion(contratacion)
 
   try {
     // Saving the Contratacion
@@ -79,18 +67,19 @@ exports.updateContratacion = async function (contratacion) {
   }
   //Edit the Contratacion Object
 
-  oldContratacion.estado= contratacion.estado;
-  oldContratacion.rating= contratacion.rating;
-  oldContratacion.isValorada= contratacion.isValorada;
-  oldContratacion.telefono= contratacion.telefono;
-  oldContratacion.email= contratacion.email;
-  oldContratacion.horarioRef= contratacion.horarioRef;
-  oldContratacion.mensaje= contratacion.mensaje;
-  oldContratacion.fechaFinalizacion= contratacion.fechaFinalizacion;
-  oldContratacion.alumno= contratacion.alumno;
-  oldContratacion.profesor= contratacion.profesor;
+  oldContratacion.estado = (oldContratacion.estado!== null) ?  oldContratacion.estado : oldContratacion.estado
+  oldContratacion.rating = (oldContratacion.rating!== null) ?  oldContratacion.rating : oldContratacion.rating
+  oldContratacion.isValorada = (oldContratacion.isValorada!== null) ?  oldContratacion.isValorada : oldContratacion.isValorada
+  oldContratacion.telefono = (oldContratacion.telefono!== null) ?  oldContratacion.telefono : oldContratacion.telefono
+  oldContratacion.email = (oldContratacion.email!== null) ?  oldContratacion.email : oldContratacion.email
+  oldContratacion.horarioRef = (oldContratacion.horarioRef!== null) ?  oldContratacion.horarioRef : oldContratacion.horarioRef
+  oldContratacion.mensaje = (oldContratacion.mensaje!== null) ?  oldContratacion.mensaje : oldContratacion.mensaje
+  oldContratacion.fechaFinalizacion = (oldContratacion.fechaFinalizacion!== null) ?  oldContratacion.fechaFinalizacion : oldContratacion.fechaFinalizacion
+  oldContratacion.alumno = (oldContratacion.alumno!== null) ?  oldContratacion.alumno : oldContratacion.alumno
+  oldContratacion.profesor = (oldContratacion.profesor!== null) ?  oldContratacion.profesor : oldContratacion.profesor
 
 
+  console.log('contratacion actualizada', oldContratacion)
   try {
     var savedContratacion = await oldContratacion.save();
     return savedContratacion;
