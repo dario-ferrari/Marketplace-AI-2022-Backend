@@ -87,7 +87,9 @@ exports.updateComentario = async function (req, res, next) {
         mensaje: req.body.mensaje ? req.body.mensaje: null ,
         likes: req.body.likes ? req.body.likes: null ,
         estado: req.body.estado ? req.body.estado: null ,
+
         justificacion: req.body.justificacion ? req.body.justificacion: null
+
     }
     try {
         var updateComentario = await comentarioService.updateComentario(Comentario)
