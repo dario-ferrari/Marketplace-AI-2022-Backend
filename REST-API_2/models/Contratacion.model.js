@@ -2,8 +2,11 @@ var mongoose = require('mongoose')
 var mongoosePaginate = require('mongoose-paginate')
 
 
-var ContratacionSchema = new mongoose.Schema({
-    Clases_id: mongoose.Schema.Types.ObjectId,
+var contratacionSchema = new mongoose.Schema({
+    Clases_id: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'clases'
+    },
     alumno: Object,
     profesor: Object,
     estado: String,
@@ -17,7 +20,7 @@ var ContratacionSchema = new mongoose.Schema({
     fechaCreacion: Date
 })
 
-ContratacionSchema.plugin(mongoosePaginate)
-const Contratacion = mongoose.model('Contratacione', ContratacionSchema)
+contratacionSchema.plugin(mongoosePaginate)
+const contratacion = mongoose.model('contratacione', contratacionSchema)
 
-module.exports = Contratacion;
+module.exports = contratacion;
