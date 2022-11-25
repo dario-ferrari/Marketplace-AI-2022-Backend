@@ -56,7 +56,7 @@ exports.createContratacion = async function (req, res) {
     // Req.Body contains the form submit values.
     console.log("llegue al controller",req.body)
     var Contratacion = {
-        Clases_id: req.body.Clases_id,
+        clase: req.body.clase,
         alumno: req.body.alumno,
         profesor: req.body.profesor,
         estado: req.body.estado,
@@ -89,7 +89,7 @@ exports.updateContratacion = async function (req, res, next) {
 
     
     var Contratacion = {
-        Clases_id: req.body.Clases_id ? req.body.Clases_id : null,
+        clase: req.body.clase ? req.body.clase : null,
         alumno: req.body.alumno ? req.body.alumno : null,
         profesor: req.body.profesor ? req.body.profesor : null,
         estado: req.body.estado ? req.body.estado : null,

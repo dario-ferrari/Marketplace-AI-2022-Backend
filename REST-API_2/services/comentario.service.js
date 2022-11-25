@@ -26,6 +26,21 @@ exports.getComentarios = async function (query, page, limit) {
   }
 };
 
+exports.getComentariobyId = async function (query) {
+  // Options setup for the mongoose paginate
+  // Try Catch the awaited promise to handle the error
+  try {
+    console.log("Query", query);
+    var Comentarios = await Comentario.findOne(query);
+    // Return the comentariod list that was retured by the mongoose promise
+    return Comentarios;
+  } catch (e) {
+    // return a Error message describing the reason
+    console.log("error services", e);
+    throw Error("Error while Paginating Comentarios");
+  }
+};
+
 exports.createComentario = async function (comentario) {
   // Creating a new Mongoose Object by using the new keyword
 

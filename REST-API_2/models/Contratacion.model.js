@@ -13,7 +13,7 @@ var contratacionSchema = new mongoose.Schema({
     },
     profesor: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'user'
+        ref: 'usuario'
     },
     estado: String,
     fechaFinalizacion: Date,

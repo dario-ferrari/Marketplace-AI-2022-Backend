@@ -3,8 +3,14 @@ var mongoosePaginate = require('mongoose-paginate')
 
 
 var ComentarioSchema = new mongoose.Schema({
-    Clases_id: mongoose.Schema.Types.ObjectId,
-    Usuarios_id: mongoose.Schema.Types.ObjectId,
+    clase: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'usuario'
+    },
+    usuario: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'clase'
+    },
     mensaje:String,
     likes:Number,
     estado:String,
@@ -13,6 +19,6 @@ var ComentarioSchema = new mongoose.Schema({
 })
 
 ComentarioSchema.plugin(mongoosePaginate)
-const Comentario = mongoose.model('Comentario', ComentarioSchema)
+const Comentario = mongoose.model('comentario', ComentarioSchema)
 
 module.exports = Comentario;

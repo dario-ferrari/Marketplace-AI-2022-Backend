@@ -95,6 +95,7 @@ exports.updateUser = async function (req, res, next) {
         email: req.body.email ? req.body.email :null,
         titulo:req.body.titulo ? req.body.titulo :null,
         experiencia: req.body.experiencia ? req.body.experiencia :null,
+        avatar : req.body.avatar ? req.body.avatar :null,
         fechaNac: req.body.fechaNac ? req.body.fechaNac :null,
         estudios: req.body.estudios ? req.body.estudios :null,
         date: req.body.date ? req.body.date :null,
