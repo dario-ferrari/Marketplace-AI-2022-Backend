@@ -44,7 +44,7 @@ exports.getUsersById = async function(req,res){
     console.log("aca estoy llegando salame")
     let filtro= {_id: req.body._id}
     try {
-        var Users = await UserService.getUsers(filtro)
+        var Users = await UserService.getUserbyId(filtro)
         // Return the Users list with the appropriate HTTP password Code and Message.
         return res.status(200).json({status: 200, data: Users, message: "Succesfully Users Recieved"});
     } catch (e) {
