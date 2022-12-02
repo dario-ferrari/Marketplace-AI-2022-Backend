@@ -91,16 +91,9 @@ exports.updateContratacion = async function (req, res, next) {
     
     var Contratacion = {
         _id: mongoose.Types.ObjectId(req.body._id),
-        clase: mongoose.Types.ObjectId(req.body.clase) ? mongoose.Types.ObjectId(req.body.req.body.clase) :null,
-        alumno: mongoose.Types.ObjectId(req.body.alumno) ? mongoose.Types.ObjectId(req.body.req.body.alumno) :null,
-        profesor: mongoose.Types.ObjectId(req.body.profesor) ? mongoose.Types.ObjectId(req.body.req.body.profesor) :null,
         estado: req.body.estado ? req.body.estado : null,
         rating: req.body.rating ? req.body.rating : null,
         isValorada: req.body.isValorada ? req.body.isValorada : null,
-        telefono: req.body.telefono ? req.body.telefono : null,
-        email: req.body.email ? req.body.email : null,
-        horarioRef: req.body.horarioRef ? req.body.horarioRef : null,
-        mensaje: req.body.mensaje ? req.body.mensaje : null,
     }
     try {
         var updateContratacion = await contratacionService.updateContratacion(Contratacion)

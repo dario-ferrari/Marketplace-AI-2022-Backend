@@ -53,14 +53,13 @@ exports.createComentario = async function (req, res) {
     var Comentario = {
         clase: req.body.clase,
         usuario: req.body.usuario,
-        mensaje: req.body.mensaje,
-        likes: req.body.likes,
         estado: req.body.estado,
         justificacion: req.body.justificacion
     }
     try {
         // Calling the Service function with the new object from the Request Body
         var createComentario = await comentarioService.createComentario(Comentario)
+        console.log(createComentario)
         return res.status(201).json({createComentario, message: "Succesfully Created Comentario"})
     } catch (e) {
         //Return an Error Response Message with Code and the Error Message.
@@ -82,7 +81,6 @@ exports.updateComentario = async function (req, res, next) {
         clase: mongoose.Types.ObjectId(req.body.clase) ? mongoose.Types.ObjectId(req.body.clase) :null, 
         usuario: mongoose.Types.ObjectId(req.body.usuario) ? mongoose.Types.ObjectId(req.body.usuario) :null, 
         mensaje: req.body.mensaje ? req.body.mensaje: null ,
-        likes: req.body.likes ? req.body.likes: null ,
         estado: req.body.estado ? req.body.estado: null ,
         justificacion: req.body.justificacion ? req.body.justificacion: null
 

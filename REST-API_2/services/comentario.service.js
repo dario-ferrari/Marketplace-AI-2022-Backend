@@ -61,16 +61,8 @@ exports.createComentario = async function (comentario) {
   try {
     // Saving the Comentario
     var savedComentario = await newComentario.save();
-    var token = jwt.sign(
-      {
-        id: savedComentario._id,
-      },
-      process.env.SECRET,
-      {
-        expiresIn: 86400, // expires in 24 hours
-      }
-    );
-    return token;
+
+    return (savedComentario._id);
   } catch (e) {
     // return a Error message describing the reason
     console.log(e);
@@ -93,7 +85,6 @@ exports.updateComentario = async function (comentario) {
   }
   //Edit the comentario Object
   oldComentario.mensaje= comentario.mensaje;
-  oldComentario.likes= comentario.likes;
   oldComentario.estado= comentario.estado;
   oldComentario.justificacion= comentario.justificacion;
 

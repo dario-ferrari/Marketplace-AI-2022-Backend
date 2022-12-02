@@ -78,7 +78,7 @@ exports.createClase = async function (req, res) {
 
 exports.updateClase = async function (req, res, next) {
 
-    console.log('Llego la llamada al controlador update',req.body)
+    console.log('Llego la llamada al controlador update')
 
     // Id is necessary for the update
     if (!req.body._id) {
@@ -86,6 +86,7 @@ exports.updateClase = async function (req, res, next) {
     }
 
     console.log(req.body.comentarios)
+    console.log(req.body.Usuarios_id)
     
     var Clase = {
         _id: mongoose.Types.ObjectId(req.body._id),
@@ -97,8 +98,8 @@ exports.updateClase = async function (req, res, next) {
         precio: req.body.precio ? req.body.precio :null,
         tipo: req.body.tipo ? req.body.tipo :null,
         rating: req.body.rating ? req.body.rating :null,
-        Usuarios_id: mongoose.Types.ObjectId(req.body.Usuarios_id) ? mongoose.Types.ObjectId(req.body.Usuarios_id) :null, 
-        comentarios: req.body.comentarios ? req.body.comentarios.map((comment)=>(mongoose.Types.ObjectId(comment))) :null,
+        Usuarios_id: req.body.Usuarios_id ? mongoose.Types.ObjectId(req.body.Usuarios_id._id) :null, 
+        comentarios: req.body.comentarios ? req.body.comentarios.map((comment)=>(mongoose.Types.ObjectId(comment._id))) :null,
     }
     console.log("Clase creada para actualizar",Clase)
     try {

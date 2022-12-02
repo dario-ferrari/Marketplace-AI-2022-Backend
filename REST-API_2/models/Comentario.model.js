@@ -12,7 +12,6 @@ var ComentarioSchema = new mongoose.Schema({
         ref: 'usuario'
     },
     mensaje:String,
-    likes:Number,
     estado:String,
     justificacion:Number
 })
