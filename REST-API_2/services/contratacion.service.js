@@ -39,22 +39,13 @@ exports.getContrataciones = async function (query) {
 exports.createContratacion = async function (contratacion) {
   // Creating a new Mongoose Object by using the new keyword
 
-  
+  console.log('Aca llegue a crear la contratacion',contratacion)
   var newContratacion = new Contratacion(contratacion)
 
   try {
     // Saving the Contratacion
     var savedContratacion = await newContratacion.save();
-    var token = jwt.sign(
-      {
-        id: savedContratacion._id,
-      },
-      process.env.SECRET,
-      {
-        expiresIn: 86400, // expires in 24 hours
-      }
-    );
-    return token;
+    return savedContratacion._id;
   } catch (e) {
     // return a Error message describing the reason
     console.log(e);
@@ -80,12 +71,7 @@ exports.updateContratacion = async function (contratacion) {
   oldContratacion.estado = (oldContratacion.estado!== null) ?  oldContratacion.estado : oldContratacion.estado
   oldContratacion.rating = (oldContratacion.rating!== null) ?  oldContratacion.rating : oldContratacion.rating
   oldContratacion.isValorada = (oldContratacion.isValorada!== null) ?  oldContratacion.isValorada : oldContratacion.isValorada
-  oldContratacion.telefono = (oldContratacion.telefono!== null) ?  oldContratacion.telefono : oldContratacion.telefono
-  oldContratacion.email = (oldContratacion.email!== null) ?  oldContratacion.email : oldContratacion.email
-  oldContratacion.horarioRef = (oldContratacion.horarioRef!== null) ?  oldContratacion.horarioRef : oldContratacion.horarioRef
-  oldContratacion.mensaje = (oldContratacion.mensaje!== null) ?  oldContratacion.mensaje : oldContratacion.mensaje
-  oldContratacion.alumno = (oldContratacion.alumno!== null) ?  oldContratacion.alumno : oldContratacion.alumno
-  oldContratacion.profesor = (oldContratacion.profesor!== null) ?  oldContratacion.profesor : oldContratacion.profesor
+
 
 
   console.log('contratacion actualizada', oldContratacion)

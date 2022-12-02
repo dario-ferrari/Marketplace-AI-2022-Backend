@@ -1,6 +1,7 @@
 var UserService = require('../services/user.service');
 var UserImgService =require('../services/userImg.service');
 
+var mongoose = require('mongoose')
 // Saving the context of this module inside the _the variable
 _this = this;
 
@@ -42,7 +43,7 @@ exports.getUsersByMail = async function (req, res) {
 exports.getUsersById = async function(req,res){
 
     console.log("aca estoy llegando salame")
-    let filtro= {_id: req.body._id}
+    let filtro= {_id: mongoose.Types.ObjectId(req.body._id)}
     try {
         var Users = await UserService.getUserbyId(filtro)
         // Return the Users list with the appropriate HTTP password Code and Message.
@@ -89,7 +90,7 @@ exports.updateUser = async function (req, res, next) {
 
     
     var User = {
-        _id: req.body._id,
+        _id: mongoose.Types.ObjectId(req.body._id),
         nombre: req.body.nombre ? req.body.nombre :null,
         apellido: req.body.apellido ? req.body.apellido :null,
         email: req.body.email ? req.body.email :null,
@@ -100,8 +101,8 @@ exports.updateUser = async function (req, res, next) {
         estudios: req.body.estudios ? req.body.estudios :null,
         date: req.body.date ? req.body.date :null,
         contrasena: req.body.contrasena ? req.body.contrasena :null,
-        contrataciones: req.body.contrataciones ? req.body.contrataciones.map((contrat)=>(mongoose.Types.ObjectId(contrat))) :null,
-        clasesPublicadas: req.body.clasesPublicadas ? req.body.clasesPublicadas.map((clasePub)=>(mongoose.Types.ObjectId(clasePub))) :null
+        contrataciones: req.body.contrataciones ? req.body.contrataciones.map((contrat)=>(mongoose.Types.ObjectId(contrat._id))) :null,
+        clasesPublicadas: req.body.clasesPublicadas ? req.body.clasesPublicadas.map((clasePub)=>(mongoose.Types.ObjectId(clasePub._id))) :null
     }
     try {
         var updatedUser = await UserService.updateUser(User)

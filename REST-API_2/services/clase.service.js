@@ -14,7 +14,12 @@ exports.getClases = async function (query) {
   // Try Catch the awaited promise to handle the error
   try {
     console.log("Esta es la query de buscar por id Query", query);
-    var Clases = await Clase.find(query);
+    var Clases = await Clase.find(query).populate(
+      {
+        path:'Usuarios_id', 
+        model: Usuario 
+      }
+    );
     // Return the C lased list that was retured by the mongoose promise
     console.log("esta es la respuesta", Clases)
     return Clases;
@@ -33,7 +38,7 @@ exports.getClaseById = async function (query) {
     .populate([
       {
         path:'Usuarios_id', 
-        model: Usuario 
+        model: Usuario
       },{
         path:'comentarios', 
         model: Comentario,
@@ -70,7 +75,7 @@ exports.createClase = async function (clase) {
         expiresIn: 86400, // expires in 24 hours
       }
     );
-    return token;
+    return savedClase._id;
   } catch (e) {
     // return a Error message describing the reason
     console.log(e);

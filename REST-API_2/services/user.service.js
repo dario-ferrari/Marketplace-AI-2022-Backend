@@ -37,8 +37,24 @@ exports.getUserbyId = async function (query) {
     // Try Catch the awaited promise to handle the error 
     try {
         console.log("Query",query)
-        var Users = await User.findOne(query).populate([
-            {path:'contrataciones', model: Contratacione ,populate: {path:'clase', model: Clase }},{path:'clasesPublicadas', model: Clase}])
+        var Users = await User.findOne(query)
+        .populate([{
+            path:'clasesPublicadas', 
+            model: Clase 
+            },{ 
+            path:'contrataciones', 
+            model: Contratacione ,
+            populate: [{
+                path:'clase', 
+                model: Clase 
+            },{
+                path:'alumno', 
+                model: User  
+            },{
+                path:'profesor', 
+                model: User   
+            }]
+        }])
         // Return the User list that was retured by the mongoose promise
         console.log("respuesta",Users)
         return Users;
