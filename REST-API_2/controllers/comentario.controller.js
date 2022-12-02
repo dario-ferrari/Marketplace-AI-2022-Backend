@@ -1,7 +1,8 @@
-const Comentario = require('../models/Comentario.model');
+const Comentario = require('../models/comentario.model');
 var comentarioService = require('../services/comentario.service');
 //var UserImgService =require('../services/userImg.service');
 
+var mongoose = require('mongoose')
 // Saving the context of this module inside the _the variable
 _this = this;
 
@@ -9,10 +10,8 @@ _this = this;
 exports.getComentarios = async function (req, res, next) {
 
     // Check the existence of the query parameters, If doesn't exists assign a default value
-    var page = req.query.page ? req.query.page : 1
-    var limit = req.query.limit ? req.query.limit : 10;
     try {
-        var Comentarios = await comentarioService.getComentarios({}, page, limit)
+        var Comentarios = await comentarioService.getComentarios({})
         // Return the Users list with the appropriate HTTP password Code and Message.
         return res.status(200).json({status: 200, data: Comentarios, message: "Succesfully Comentarios Recieved"});
     } catch (e) {
@@ -24,11 +23,9 @@ exports.getComentarios = async function (req, res, next) {
 exports.getComentariosByName = async function (req, res) {
 
     // Check the existence of the query parameters, If doesn't exists assign a default value
-    var page = req.query.page ? req.query.page : 1
-    var limit = req.query.limit ? req.query.limit : 10;
     let filtro= {titulo: req.body.titulo}
     try {
-        var Comentarios = await comentarioService.getComentarios(filtro, page, limit)
+        var Comentarios = await comentarioService.getComentarios(filtro)
         // Return the Comentarios list with the appropriate HTTP password Code and Message.
         return res.status(200).json({status: 200, data: Comentarios, message: "Succesfully Comentarios Recieved"});
     } catch (e) {
@@ -39,7 +36,7 @@ exports.getComentariosByName = async function (req, res) {
 
 exports.getComentariosById = async function(req,res){
 
-    let filtro= {_id: req.body._id}
+    let filtro= {_id: mongoose.Types.ObjectId(req.body._id)}
     try {
         var Comentarios = await comentarioService.getComentariobyId(filtro)
         // Return the Comentarios list with the appropriate HTTP password Code and Message.
@@ -54,13 +51,12 @@ exports.createComentario = async function (req, res) {
     // Req.Body contains the form submit values.
     console.log("llegue al controller",req.body)
     var Comentario = {
-        Clases_id: req.body.Clases_id,
-        Usuarios_id: req.body.Usuarios_id,
+        clase: req.body.clase,
+        usuario: req.body.usuario,
         mensaje: req.body.mensaje,
         likes: req.body.likes,
         estado: req.body.estado,
-        justificacion: req.body.justificacion,
-        fechaCreacion: req.body.fechaCreacion,
+        justificacion: req.body.justificacion
     }
     try {
         // Calling the Service function with the new object from the Request Body
@@ -82,12 +78,12 @@ exports.updateComentario = async function (req, res, next) {
 
     
     var Comentario = {
-        Clases_id: req.body.Clases_id ? req.body.Clases_id : null,
-        Usuarios_id: req.body.Usuarios_id ? req.body.Usuarios_id: null ,
+        _id: mongoose.Types.ObjectId(req.body._id),
+        clase: mongoose.Types.ObjectId(req.body.clase) ? mongoose.Types.ObjectId(req.body.clase) :null, 
+        usuario: mongoose.Types.ObjectId(req.body.usuario) ? mongoose.Types.ObjectId(req.body.usuario) :null, 
         mensaje: req.body.mensaje ? req.body.mensaje: null ,
         likes: req.body.likes ? req.body.likes: null ,
         estado: req.body.estado ? req.body.estado: null ,
-
         justificacion: req.body.justificacion ? req.body.justificacion: null
 
     }
@@ -101,7 +97,7 @@ exports.updateComentario = async function (req, res, next) {
 
 exports.removeComentario = async function (req, res, next) {
 
-    var id = req.params._id;
+    var id = mongoose.Types.ObjectId(req.params._id);
     try {
         var deleted = await comentarioService.deleteComentario(id);
         res.status(200).send("Succesfully Deleted... ");

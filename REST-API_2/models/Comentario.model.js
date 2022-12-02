@@ -5,11 +5,11 @@ var mongoosePaginate = require('mongoose-paginate')
 var ComentarioSchema = new mongoose.Schema({
     clase: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'usuario'
+        ref: 'clase'
     },
     usuario: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'clase'
+        ref: 'usuario'
     },
     mensaje:String,
     likes:Number,

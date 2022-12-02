@@ -32,7 +32,20 @@ exports.getClaseById = async function (query) {
   // Try Catch the awaited rspromise to handle the error
   try {
     console.log("Esta es la query de buscar por id clase", query);
-    var Clases = await Clase.findOne(query).populate([{path:'Usuarios_id', model: Usuario },{path:'comentarios', model: Comentario,populate : {path:'usuario', model: Usuario }}]);
+    var Clases = await Clase.findOne(query)
+    .populate([
+      {
+        path:'Usuarios_id', 
+        model: Usuario 
+      },{
+        path:'comentarios', 
+        model: Comentario,
+        populate : {
+          path:'usuario',
+          model: Usuario 
+          }
+        }
+      ]);
     // Return the C lased list that was retured by the mongoose promise
     console.log ("Esta es la respuesta",Clases)
     return Clases;
@@ -87,11 +100,9 @@ exports.updateClase = async function (clase) {
   oldClase.descripcion = (clase.descripcion!== null) ?  clase.descripcion : oldClase.descripcion
   oldClase.frecuencia = (clase.frecuencia!== null) ?  clase.frecuencia : oldClase.frecuencia
   oldClase.duracion = (clase.duracion!== null) ?  clase.duracion : oldClase.duracion
-  oldClase.fechaLimite = (clase.fechaLimite!== null) ?  clase.fechaLimite : oldClase.fechaLimite
   oldClase.precio = (clase.precio!== null) ?  clase.precio : oldClase.precio
   oldClase.tipo = (clase.tipo!== null) ?  clase.tipo : oldClase.tipo
   oldClase.rating = (clase.rating!== null) ?  clase.rating : oldClase.rating
-  oldClase.disponibilidad = (clase.disponibilidad!== null) ?  clase.disponibilidad : oldClase.disponibilidad
   oldClase.comentarios = (clase.comentarios!== null) ?  clase.comentarios : oldClase.comentarios
 
   console.log('clase actualizada', oldClase)

@@ -2,9 +2,10 @@ const Contratacion = require('../models/contratacion.model');
 var contratacionService = require('../services/contratacion.service');
 //var UserImgService =require('../services/userImg.service');
 
+var mongoose = require('mongoose')
 // Saving the context of this module inside the _the variable
 _this = this;
-    
+
 // Async Controller function to get the To do List
 exports.getContrataciones = async function (req, res, next) {
 
@@ -21,14 +22,14 @@ exports.getContrataciones = async function (req, res, next) {
     }
 }
 
-exports.getContratacionesByName = async function (req, res) {
+exports.getContratacionesByClase = async function (req, res) {
 
     // Check the existence of the query parameters, If doesn't exists assign a default value
     var page = req.query.page ? req.query.page : 1
     var limit = req.query.limit ? req.query.limit : 10;
-    let filtro= {titulo: req.body.titulo}
+    let filtro= {clase: mongoose.Types.ObjectId(req.body.clase)}
     try {
-        var Contrataciones = await contratacionService.getContrataciones(filtro, page, limit)
+        var Contrataciones = await contratacionService.getContrataciones(filtro)
         // Return the Contrataciones list with the appropriate HTTP password Code and Message.
         return res.status(200).json({status: 200, data: Contrataciones, message: "Succesfully Contrataciones Recieved"});
     } catch (e) {
@@ -41,7 +42,7 @@ exports.getContratacionesById = async function(req,res){
 
     var page = req.query.page ? req.query.page : 1
     var limit = req.query.limit ? req.query.limit : 10;
-    let filtro= {_id: req.body._id}
+    let filtro= {_id: mongoose.Types.ObjectId(req.body._id)}
     try {
         var Contrataciones = await contratacionService.getContrataciones(filtro, page, limit)
         // Return the Contrataciones list with the appropriate HTTP password Code and Message.
@@ -57,11 +58,10 @@ exports.createContratacion = async function (req, res) {
     console.log("llegue al controller",req.body)
     var Contratacion = {
 
-        clase: req.body.clase,
-        alumno: req.body.alumno,
-        profesor: req.body.profesor,
+        clase: mongoose.Types.ObjectId(req.body.clase),
+        alumno:  mongoose.Types.ObjectId(req.body.alumno),
+        profesor: mongoose.Types.ObjectId(req.body.profesor),
         estado: req.body.estado,
-
         rating: req.body.rating,
         isValorada: req.body.isValorada,
         telefono: req.body.telefono,
@@ -90,20 +90,17 @@ exports.updateContratacion = async function (req, res, next) {
 
     
     var Contratacion = {
-
-        clase: req.body.clase ? req.body.clase : null,
-
-        alumno: req.body.alumno ? req.body.alumno : null,
-        profesor: req.body.profesor ? req.body.profesor : null,
+        _id: mongoose.Types.ObjectId(req.body._id),
+        clase: mongoose.Types.ObjectId(req.body.clase) ? mongoose.Types.ObjectId(req.body.req.body.clase) :null,
+        alumno: mongoose.Types.ObjectId(req.body.alumno) ? mongoose.Types.ObjectId(req.body.req.body.alumno) :null,
+        profesor: mongoose.Types.ObjectId(req.body.profesor) ? mongoose.Types.ObjectId(req.body.req.body.profesor) :null,
         estado: req.body.estado ? req.body.estado : null,
-        fechaFinalizacion:req.body.fechaFinalizacion ? req.body.fechaFinalizacion : null,
         rating: req.body.rating ? req.body.rating : null,
         isValorada: req.body.isValorada ? req.body.isValorada : null,
         telefono: req.body.telefono ? req.body.telefono : null,
         email: req.body.email ? req.body.email : null,
         horarioRef: req.body.horarioRef ? req.body.horarioRef : null,
         mensaje: req.body.mensaje ? req.body.mensaje : null,
-        fechaCreacion: req.body.fechaCreacion ? req.body.fechaCreacion : null
     }
     try {
         var updateContratacion = await contratacionService.updateContratacion(Contratacion)
@@ -115,7 +112,7 @@ exports.updateContratacion = async function (req, res, next) {
 
 exports.removeContratacion = async function (req, res, next) {
 
-    var id = req.params._id;
+    var id = mongoose.Types.ObjectId(req.params._id);
     try {
         var deleted = await contratacionService.deleteContratacion(id);
         res.status(200).send("Succesfully Deleted... ");
