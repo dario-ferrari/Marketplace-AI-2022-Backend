@@ -1,5 +1,5 @@
 // Gettign the Newly created Mongoose Model we just created
-var Contratacion = require("../models/Contratacion.model.js");
+var Contratacion = require("../models/contratacion.model.js");
 var bcrypt = require("bcryptjs");
 var jwt = require("jsonwebtoken");
 

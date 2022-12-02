@@ -10,7 +10,8 @@ var cors = require('cors');
 var indexRouter = require('./routes/index');
 var apiRouter = require('./routes/user.route'); //Custom
 var utilRouter = require('./routes/utils');
-var claseApiRouter = require("./routes/clase.route")
+var claseApiRouter = require("./routes/clase.route");
+var contratApiRouter = require("./routes/contratacion.route");
 
 //instancio el servidor
 var app = express();
@@ -31,6 +32,7 @@ app.use('/usuarios', apiRouter);
 app.use('/', indexRouter);
 app.use('/utils/',utilRouter);
 app.use('/clases',claseApiRouter);
+app.use('/contrataciones',contratApiRouter);
 
 //onsole.log("processENV",process.env);
 if (process.env.NODE_ENV === 'Development') {

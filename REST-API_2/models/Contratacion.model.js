@@ -2,21 +2,20 @@ var mongoose = require('mongoose')
 var mongoosePaginate = require('mongoose-paginate')
 
 
-var contratacionSchema = new mongoose.Schema({
+var ContratacionSchema = new mongoose.Schema({
     clase: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'clase'
     },
     alumno: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'user'
+        ref: 'usuario'
     },
     profesor: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'usuario'
     },
     estado: String,
-    fechaFinalizacion: Date,
     rating: Number,
     isValorada: Boolean,
     telefono: String,
@@ -25,7 +24,7 @@ var contratacionSchema = new mongoose.Schema({
     mensaje: String
 })
 
-contratacionSchema.plugin(mongoosePaginate)
-const contratacion = mongoose.model('contratacione', contratacionSchema)
+ContratacionSchema.plugin(mongoosePaginate)
+const Contratacion = mongoose.model('contratacione', ContratacionSchema)
 
-module.exports = contratacion;
+module.exports = Contratacion;

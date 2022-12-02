@@ -1,10 +1,10 @@
-const Contratacion = require('../models/Contratacion.model');
+const Contratacion = require('../models/contratacion.model');
 var contratacionService = require('../services/contratacion.service');
 //var UserImgService =require('../services/userImg.service');
 
 // Saving the context of this module inside the _the variable
 _this = this;
-
+    
 // Async Controller function to get the To do List
 exports.getContrataciones = async function (req, res, next) {
 
