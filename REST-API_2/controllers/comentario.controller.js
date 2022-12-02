@@ -53,6 +53,7 @@ exports.createComentario = async function (req, res) {
     var Comentario = {
         clase: req.body.clase,
         usuario: req.body.usuario,
+        mensaje: req.body.mensaje,
         estado: req.body.estado,
         justificacion: req.body.justificacion
     }
