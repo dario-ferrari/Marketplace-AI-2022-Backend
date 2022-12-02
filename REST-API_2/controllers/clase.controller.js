@@ -91,7 +91,7 @@ exports.updateClase = async function (req, res, next) {
     console.log(req.body.comentarios)
     
     var Clase = {
-        _id: req.body._id,
+        _id: mongoose.Types.ObjectId(req.body._id),
         titulo: req.body.titulo ? req.body.titulo : null ,
         imagen: req.body.imagen ? req.body.imagen : null,
         descripcion: req.body.descripcion ? req.body.descripcion : null,

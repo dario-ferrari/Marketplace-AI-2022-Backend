@@ -1,5 +1,7 @@
 // Gettign the Newly created Mongoose Model we just created
 var Contratacion = require("../models/contratacion.model.js");
+var Clase = require("../models/clase.model.js");
+var Usuario = require("../models/user.model.js");
 var bcrypt = require("bcryptjs");
 var jwt = require("jsonwebtoken");
 
@@ -7,16 +9,24 @@ var jwt = require("jsonwebtoken");
 _this = this;
 
 // Async function to get the Contratacion List
-exports.getContrataciones = async function (query, page, limit) {
+exports.getContrataciones = async function (query) {
   // Options setup for the mongoose paginate
-  var options = {
-    page,
-    limit,
-  };
   // Try Catch the awaited promise to handle the error
   try {
     console.log("Query", query);
-    var Contrataciones = await Contratacion.paginate(query, options);
+    var Contrataciones = await Contratacion.find(query)
+    .populate([
+      {
+      path:'clase', 
+      model: Clase
+    },{
+      path:'alumno',
+      model:Usuario
+    },{
+      path:'profesor',
+      model:Usuario
+    }
+  ]);
     // Return the Contrataciond list that was retured by the mongoose promise
     return Contrataciones;
   } catch (e) {
@@ -74,7 +84,6 @@ exports.updateContratacion = async function (contratacion) {
   oldContratacion.email = (oldContratacion.email!== null) ?  oldContratacion.email : oldContratacion.email
   oldContratacion.horarioRef = (oldContratacion.horarioRef!== null) ?  oldContratacion.horarioRef : oldContratacion.horarioRef
   oldContratacion.mensaje = (oldContratacion.mensaje!== null) ?  oldContratacion.mensaje : oldContratacion.mensaje
-  oldContratacion.fechaFinalizacion = (oldContratacion.fechaFinalizacion!== null) ?  oldContratacion.fechaFinalizacion : oldContratacion.fechaFinalizacion
   oldContratacion.alumno = (oldContratacion.alumno!== null) ?  oldContratacion.alumno : oldContratacion.alumno
   oldContratacion.profesor = (oldContratacion.profesor!== null) ?  oldContratacion.profesor : oldContratacion.profesor
 

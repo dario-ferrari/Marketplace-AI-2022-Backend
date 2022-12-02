@@ -1,23 +1,26 @@
 // Gettign the Newly created Mongoose Model we just created
-var Comentario = require("../models/Comentario.model.js");
-var Usuario = requeiere("../models/User.model.js")
+var Comentario = require("../models/comentario.model.js");
+var Usuario = require("../models/user.model.js")
 var bcrypt = require("bcryptjs");
 var jwt = require("jsonwebtoken");
+const Clase = require("../models/clase.model.js");
 
 // Saving the context of this module inside the _the variable
 _this = this;
 
 // Async function to get the Comentario List
-exports.getComentarios = async function (query, page, limit) {
+exports.getComentarios = async function (query) {
   // Options setup for the mongoose paginate
-  var options = {
-    page,
-    limit,
-  };
   // Try Catch the awaited promise to handle the error
   try {
     console.log("Query", query);
-    var Comentarios = await Comentario.paginate(query, options);
+    var Comentarios = await Comentario.find(query).populate({
+      path: "usuario", 
+      model : Usuario
+    },{
+      path:'clase',
+      model: Clase
+    });
     // Return the comentariod list that was retured by the mongoose promise
     return Comentarios;
   } catch (e) {
@@ -33,7 +36,11 @@ exports.getComentariobyId = async function (query) {
   try {
     console.log("Query", query);
     var Comentarios = await Comentario.findOne(query).populate({
-      path: "usuario", model : Usuario
+      path: "usuario", 
+      model : Usuario
+    },{
+      path:'clase',
+      model: Clase
     });
     // Return the comentariod list that was retured by the mongoose promise
     return Comentarios;
@@ -47,15 +54,9 @@ exports.getComentariobyId = async function (query) {
 exports.createComentario = async function (comentario) {
   // Creating a new Mongoose Object by using the new keyword
 
-  var newComentario = new Comentario({
-    claseId: comentario.Clases_id,
-    usuarioId: comentario.Usuarios_id,
-    mensaje: comentario.mensaje,
-    likes: comentario.likes,
-    estado: comentario.estado,
-    justificacion: comentario.justificacion,
-    fechaCreacion: new Date(),
-  });
+  console.log(comentario)
+
+  var newComentario = new Comentario(comentario)
 
   try {
     // Saving the Comentario
