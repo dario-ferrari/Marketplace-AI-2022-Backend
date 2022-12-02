@@ -9,17 +9,14 @@ var jwt = require("jsonwebtoken");
 _this = this;
 
 // Async function to get the Clase List
-exports.getClases = async function (query, page, limit) {
+exports.getClases = async function (query) {
   // Options setup for the mongoose paginate
-  var options = {
-    page,
-    limit,
-  };
   // Try Catch the awaited promise to handle the error
   try {
     console.log("Esta es la query de buscar por id Query", query);
     var Clases = await Clase.find(query);
     // Return the C lased list that was retured by the mongoose promise
+    console.log("esta es la respuesta", Clases)
     return Clases;
   } catch (e) {
     // return a Error message describing the reason
