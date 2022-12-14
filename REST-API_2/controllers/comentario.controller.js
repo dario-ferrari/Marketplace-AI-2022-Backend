@@ -79,9 +79,6 @@ exports.updateComentario = async function (req, res, next) {
     
     var Comentario = {
         _id: mongoose.Types.ObjectId(req.body._id),
-        clase: mongoose.Types.ObjectId(req.body.clase) ? mongoose.Types.ObjectId(req.body.clase) :null, 
-        usuario: mongoose.Types.ObjectId(req.body.usuario) ? mongoose.Types.ObjectId(req.body.usuario) :null, 
-        mensaje: req.body.mensaje ? req.body.mensaje: null ,
         estado: req.body.estado ? req.body.estado: null ,
         justificacion: req.body.justificacion ? req.body.justificacion: null
 

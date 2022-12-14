@@ -84,7 +84,6 @@ exports.updateComentario = async function (comentario) {
     return false;
   }
   //Edit the comentario Object
-  oldComentario.mensaje= comentario.mensaje;
   oldComentario.estado= comentario.estado;
   oldComentario.justificacion= comentario.justificacion;
 
