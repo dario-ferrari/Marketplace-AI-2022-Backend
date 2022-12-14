@@ -67,10 +67,11 @@ exports.updateContratacion = async function (contratacion) {
     return false;
   }
   //Edit the Contratacion Object
+   
 
-  oldContratacion.estado = (oldContratacion.estado!== null) ?  oldContratacion.estado : oldContratacion.estado
-  oldContratacion.rating = (oldContratacion.rating!== null) ?  oldContratacion.rating : oldContratacion.rating
-  oldContratacion.isValorada = (oldContratacion.isValorada!== null) ?  oldContratacion.isValorada : oldContratacion.isValorada
+  oldContratacion.estado = (contratacion.estado!== null) ?  contratacion.estado : oldContratacion.estado
+  oldContratacion.rating = (contratacion.rating!== null) ?  contratacion.rating : oldContratacion.rating
+  oldContratacion.isValorada = (contratacion.isValorada!== null) ?  contratacion.isValorada : oldContratacion.isValorada
 
 
 

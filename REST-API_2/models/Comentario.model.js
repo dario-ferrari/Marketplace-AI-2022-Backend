@@ -13,7 +13,7 @@ var ComentarioSchema = new mongoose.Schema({
     },
     mensaje:String,
     estado:String,
-    justificacion:Number
+    justificacion:String
 })
 
 ComentarioSchema.plugin(mongoosePaginate)

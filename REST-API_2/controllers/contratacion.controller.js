@@ -88,7 +88,7 @@ exports.updateContratacion = async function (req, res, next) {
         return res.status(400).json({status: 400., message: "Name be present"})
     }
 
-    
+    console.log(req.body)
     var Contratacion = {
         _id: mongoose.Types.ObjectId(req.body._id),
         estado: req.body.estado ? req.body.estado : null,
