@@ -5,18 +5,17 @@ exports.sendEmail = async function (req, res, next){
     
     // Definimos el transporter
     var transporter = nodemailer.createTransport({
-        //host: 'svp-02715.fibercorp.local',
+        host: 'smtp.gmail.com',
         //secure: false,
-        port:25,
-        service: 'Gmail',
+        port:587,
         auth: {
-            user: 'pruebalabs@gmail.com',//poner cuenta gmail
-            pass: 'QWERasdf1234'  //contraseña cuenta  IMPORTANTE HABILITAR acceso apps poco seguras google
+            user: 'ayuda.apliaciones.interactivas@gmail.com',//poner cuenta gmail
+            pass: 'vjhpdsuxiueugakw'  //contraseña cuenta  IMPORTANTE HABILITAR acceso apps poco seguras google
         }
      });
     // Definimos el email
     var mailOptions = {
-        from: 'pruebalabs@gmail.com',
+        from: 'ayuda.apliaciones.interactivas@gmail.com',
         to: req.body.destinatario,
         subject: req.body.asunto,
         html: req.body.texto,
