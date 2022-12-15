@@ -19,7 +19,7 @@ exports.sendEmail = async function (req, res, next){
         from: 'pruebalabs@gmail.com',
         to: req.body.destinatario,
         subject: req.body.asunto,
-        html: '<h1> y aca se muestra el texto  </h1><h3>' +req.body.texto+'</h3>',
+        html: req.body.texto,
         
     };
     console.log("mail",mailOptions)
