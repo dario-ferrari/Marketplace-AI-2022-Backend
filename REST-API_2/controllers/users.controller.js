@@ -62,10 +62,11 @@ exports.createUser = async function (req, res) {
         apellido: req.body.apellido,
         email: req.body.email,
         titulo:req.body.titulo,
+        rol:req.body.rol,
+        avatar:req.body.avatar,
         experiencia: req.body.experiencia,
         fechaNac: req.body.fechaNac,
         estudios: req.body.estudios,
-        date: req.body.date,
         contrasena: req.body.contrasena
     }
     try {
@@ -99,7 +100,6 @@ exports.updateUser = async function (req, res, next) {
         avatar : req.body.avatar ? req.body.avatar :null,
         fechaNac: req.body.fechaNac ? req.body.fechaNac :null,
         estudios: req.body.estudios ? req.body.estudios :null,
-        date: req.body.date ? req.body.date :null,
         contrasena: req.body.contrasena ? req.body.contrasena :null,
         contrataciones: req.body.contrataciones ? req.body.contrataciones.map((contrat)=>(mongoose.Types.ObjectId(contrat._id))) :null,
         clasesPublicadas: req.body.clasesPublicadas ? req.body.clasesPublicadas.map((clasePub)=>(mongoose.Types.ObjectId(clasePub._id))) :null

@@ -74,12 +74,15 @@ exports.createUser = async function (user) {
     var newUser = new User({
         nombre: user.nombre,
         apellido: user.apellido,
+        rol:user.rol,
         email: user.email,
         titulo:user.titulo,
+        avatar:user.avatar,
         experiencia: user.experiencia,
         fechaNac: user.fechaNac,
         estudios: user.estudios,
-        date: new Date(),
+        contrataciones: [],
+        clasesPublicadas:[],
         contrasena: hashedPassword
     })
 
