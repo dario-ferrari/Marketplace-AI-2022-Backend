@@ -70,8 +70,8 @@ exports.createUser = async function (req, res) {
     }
     try {
         // Calling the Service function with the new object from the Request Body
-        var createdUser = await UserService.createUser(User)
-        return res.status(201).json({createdUser, message: "Succesfully Created User"})
+        var createUser = await UserService.createUser(User)
+        return res.status(201).json({createUser, message: "Succesfully Created User"})
     } catch (e) {
         //Return an Error Response Message with Code and the Error Message.
         console.log(e)
